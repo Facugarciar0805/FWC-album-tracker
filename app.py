@@ -11,6 +11,24 @@ st.set_page_config(
     layout="wide",
 )
 
+password = os.environ.get("APP_PASSWORD", "")
+
+if password:
+    if "autenticado" not in st.session_state:
+        st.session_state.autenticado = False
+
+    if not st.session_state.autenticado:
+        ingresada = st.text_input("Contraseña", type="password")
+        if st.button("Entrar"):
+            if ingresada == password:
+                st.session_state.autenticado = True
+                st.rerun()
+            else:
+                st.error("Contraseña incorrecta")
+        st.stop()
+
+
+
 CSV_PATH = "figuritas.csv"
 JSON_PATH = "datos.json"
 
