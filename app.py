@@ -220,14 +220,6 @@ with st.sidebar:
     st.markdown(f"**{pais_sel}:** {t}/20 — faltan {f}")
     st.progress(t / 20)
 
-    st.divider()
-    st.markdown("#### 🔧 Opciones")
-    if st.button("♻️ Resetear al CSV original", use_container_width=True):
-        if os.path.exists(JSON_PATH):
-            os.remove(JSON_PATH)
-        st.session_state.datos = cargar_datos()
-        st.rerun()
-
 # ── TABLA PRINCIPAL ──────────────────────────────────────────────────────────
 
 # Filtros rápidos encima de la tabla
