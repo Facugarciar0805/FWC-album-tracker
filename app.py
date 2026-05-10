@@ -3,6 +3,8 @@ import streamlit.components.v1 as components
 import json
 import os
 
+# agrego un comment solo para probar la persistencia
+
 # ── Configuración de la página ──────────────────────────────────────────────
 st.set_page_config(
     page_title="Álbum Mundial - Figuritas",
