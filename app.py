@@ -34,8 +34,7 @@ JSON_SEED = "datos.json"
 # ── Carga / guardado de datos ─────────────────────────────────────────────────
 
 def cargar_datos() -> dict:
-    # Si ya existe en el volumen, lo usa directamente
-    if os.path.exists(JSON_PATH):
+    if os.path.exists(JSON_PATH) and os.path.getsize(JSON_PATH) > 0:
         with open(JSON_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
     # Primera vez: copia el seed del repo al volumen
