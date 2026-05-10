@@ -27,18 +27,29 @@ if password:
                 st.error("Contraseña incorrecta")
         st.stop()
 
-JSON_PATH = "datos.json"
-
+# ── Paths ─────────────────────────────────────────────────────────────────────
+EN_RAILWAY = os.path.exists("/app")
+JSON_PATH = "/app/data/datos.json" if EN_RAILWAY else "datos.json"
+JSON_SEED = "datos.json"
 # ── Carga / guardado de datos ─────────────────────────────────────────────────
 
 def cargar_datos() -> dict:
+    # Si ya existe en el volumen, lo usa directamente
     if os.path.exists(JSON_PATH):
         with open(JSON_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
+    # Primera vez: copia el seed del repo al volumen
+    if os.path.exists(JSON_SEED):
+        os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
+        with open(JSON_SEED, "r", encoding="utf-8") as f:
+            datos = json.load(f)
+        guardar_datos(datos)
+        return datos
     st.error("No se encontró datos.json. Asegurate de que el archivo esté en el proyecto.")
     st.stop()
 
 def guardar_datos(datos: dict):
+    os.makedirs(os.path.dirname(JSON_PATH), exist_ok=True)
     with open(JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(datos, f, ensure_ascii=False, indent=2)
 
@@ -142,6 +153,8 @@ with st.sidebar:
     f = faltan_pais(pais_sel)
     st.markdown(f"**{pais_sel}:** {t}/20 — faltan {f}")
     st.progress(t / 20)
+
+
 
 # ── TABLA PRINCIPAL ───────────────────────────────────────────────────────────
 col_f1, col_f2 = st.columns([2, 1])
