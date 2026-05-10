@@ -1,5 +1,4 @@
 # created by virtualenv automatically
 venv/
 .idea/
-datos.json
 __pycache__/
