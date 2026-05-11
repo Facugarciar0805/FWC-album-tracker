@@ -155,6 +155,16 @@ with st.sidebar:
     st.markdown(f"**{pais_sel}:** {t}/20 — faltan {f}")
     st.progress(t / 20)
 
+    st.divider()
+    st.markdown("#### 💾 Backup")
+    st.download_button(
+        label="⬇️ Descargar datos en formato json",
+        data=json.dumps(datos, ensure_ascii=False, indent=2),
+        file_name="datos.json",
+        mime="application/json",
+        use_container_width=True
+    )
+
 
 
 # ── TABLA PRINCIPAL ───────────────────────────────────────────────────────────
